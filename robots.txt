@@ -1,0 +1,8 @@
+# robots.txt for Atom Miners™
+# https://atomminers.github.io
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://atomminers.github.io/sitemap.xml
