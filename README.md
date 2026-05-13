@@ -5,3 +5,8 @@
 <img src="https://github.com/AtomMiners/AtomMiners.github.io/blob/main/Atom_Miners_logo.jpg" alt="Atom Miners logo">
 </a>
 </p>
+
+# Contact:
+### 9 8F Jingtiandong St 1st, Futian District, Shenzhen, Guangdong Province, 518034, China
+### email: orders@atomminers.com
+### phone: +86 755-838-90-798
