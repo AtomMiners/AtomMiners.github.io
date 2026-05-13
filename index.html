@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atom Miners™ — Power. Compute. Scale.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="Atom%20Miners%E2%84%A2%20%E2%80%94%20Power.%20Compute.%20Scale_files/css2.css" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #080808;
+      --surface:  #0f0f0f;
+      --border:   #1e1e1e;
+      --mid:      #2a2a2a;
+      --text:     #e8e2d9;
+      --muted:    #6b6560;
+      --amber:    #f5a623;
+      --amber-dim:#7a5112;
+      --red:      #e84040;
+      --white:    #f7f3ee;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ─────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── HEADER ────────────────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 64px; height: 64px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .logo-mark svg { display: block; }
+
+    .logo-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 0.12em;
+      color: var(--white);
+    }
+
+    .logo-name span { color: var(--amber); }
+
+    nav { display: flex; align-items: center; gap: 32px; }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--amber); }
+
+    .nav-cta {
+      background: var(--amber);
+      color: var(--black) !important;
+      padding: 8px 18px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: #ffc142 !important; color: var(--black) !important; }
+
+    /* ── HERO ──────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+      opacity: 0.5;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 20%; right: 0;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 48px 80px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow-line {
+      width: 32px; height: 1px;
+      background: var(--amber);
+    }
+
+    .hero-eyebrow-text {
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 7vw, 110px);
+      line-height: 0.92;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--amber);
+    }
+
+    .hero-sub {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--amber);
+      color: var(--black);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: #ffc142; transform: translateY(-1px); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border: 1px solid var(--mid);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-ghost:hover { border-color: var(--amber); color: var(--amber); transform: translateY(-1px); }
+
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      padding: 80px 80px 80px 0;
+    }
+
+    .hero-visual {
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 1;
+      position: relative;
+    }
+
+    .atom-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid;
+      animation: spin linear infinite;
+    }
+
+    .ring-1 {
+      inset: 0;
+      border-color: rgba(245,166,35,0.25);
+      animation-duration: 20s;
+    }
+
+    .ring-2 {
+      inset: 15%;
+      border-color: rgba(245,166,35,0.15);
+      animation-duration: 14s;
+      animation-direction: reverse;
+      border-style: dashed;
+    }
+
+    .ring-3 {
+      inset: 30%;
+      border-color: rgba(245,166,35,0.3);
+      animation-duration: 9s;
+    }
+
+    .ring-core {
+      position: absolute;
+      inset: 42%;
+      background: var(--amber);
+      border-radius: 50%;
+      box-shadow: 0 0 40px rgba(245,166,35,0.6), 0 0 80px rgba(245,166,35,0.3);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .ring-dot {
+      position: absolute;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--amber);
+      box-shadow: 0 0 10px var(--amber);
+    }
+
+    .dot-1 { top: 0; left: 50%; transform: translate(-50%, -50%); }
+    .dot-2 { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
+    .dot-3 { top: 50%; right: 0; transform: translate(50%, -50%); }
+    .dot-4 { top: 50%; left: 0; transform: translate(-50%, -50%); }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.9); }
+    }
+
+    /* ── STATS BAR ──────────────────────────────────────────── */
+    .stats-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat {
+      padding: 32px 40px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: 0.04em;
+    }
+
+    .stat-value span { color: var(--amber); }
+
+    .stat-label {
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* ── SECTION SHARED ─────────────────────────────────────── */
+    section { padding: 100px 80px; }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .section-tag::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--amber);
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 4vw, 64px);
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+    }
+
+    /* ── PRODUCTS ───────────────────────────────────────────── */
+    #products { background: var(--surface); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .product-card {
+      background: var(--surface);
+      padding: 48px 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--amber);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .product-card:hover { background: #111; }
+    .product-card:hover::after { transform: scaleX(1); }
+
+    .product-icon {
+      width: 52px; height: 52px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--amber);
+      background: var(--black);
+    }
+
+    .product-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .product-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .product-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 4px 0;
+    }
+
+    .spec-tag {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--amber);
+      text-decoration: none;
+      font-size: 13px;
+      margin-top: auto;
+    }
+
+    .product-link:hover { gap: 14px; }
+
+    /* ── WHY ATOM R ─────────────────────────────────────────── */
+    #why {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .why-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .why-feature {
+      display: flex;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .why-feature:first-child { border-top: 1px solid var(--border); }
+
+    .why-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      color: var(--border);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 40px;
+    }
+
+    .why-content h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .why-content p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .why-visual {
+      position: relative;
+      aspect-ratio: 1;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .why-visual-inner {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 1px;
+      background: var(--border);
+      opacity: 0.6;
+    }
+
+    .why-visual-cell {
+      background: var(--surface);
+      transition: background 0.5s;
+    }
+
+    .why-visual-cell.lit { background: rgba(245,166,35,0.15); }
+    .why-visual-cell.bright { background: rgba(245,166,35,0.4); }
+
+    .why-visual-label {
+      position: absolute;
+      bottom: 24px; left: 24px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      line-height: 1;
+      color: var(--white);
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    /* ── CONTACT ─────────────────────────────────────────────── */
+    #contact { background: var(--surface); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 0;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      padding: 44px;
+    }
+
+    .contact-label {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .contact-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      color: var(--white);
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a.contact-value:hover { color: var(--amber); }
+
+    .contact-note {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      padding: 32px 80px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .footer-logo span { color: var(--amber); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--mid);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links { display: flex; gap: 24px; }
+
+    .footer-links a {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--amber); }
+
+    /* ── ANIMATIONS ─────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-left > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+    .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+    .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+    .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      header { padding: 0 24px; }
+      nav { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 60px 24px; }
+      section { padding: 64px 24px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .products-grid { grid-template-columns: 1fr; }
+      #why { grid-template-columns: 1fr; gap: 48px; }
+      .why-visual { display: none; }
+      .contact-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+          <defs>
+            <radialGradient id="logo-e-grad" cx="35%" cy="35%">
+              <stop offset="0%" stop-color="#ffe49a"></stop>
+              <stop offset="100%" stop-color="#f5a623"></stop>
+            </radialGradient>
+            <filter id="logo-e-glow" x="-120%" y="-120%" width="340%" height="340%">
+              <feGaussianBlur stdDeviation="2.2" result="blur"></feGaussianBlur>
+              <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+            </filter>
+            <filter id="logo-n-glow" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="3.5" result="blur"></feGaussianBlur>
+              <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Nucleus -->
+          <circle cx="32" cy="32" r="9" fill="#f5a623" opacity="0.15"></circle>
+          <circle cx="32" cy="32" r="6" fill="url(#logo-e-grad)" filter="url(#logo-n-glow)"></circle>
+
+          <!-- Orbit 1: horizontal ellipse (classic side-on) -->
+          <ellipse cx="32" cy="32" rx="26" ry="9" stroke="#f5a623" stroke-width="1.1" opacity="0.6"></ellipse>
+          <!-- Orbit 2: tilted 60deg -->
+          <ellipse cx="32" cy="32" rx="26" ry="9" stroke="#f5a623" stroke-width="1.1" opacity="0.6" transform="rotate(60 32 32)"></ellipse>
+          <!-- Orbit 3: tilted -60deg (120deg) -->
+          <ellipse cx="32" cy="32" rx="26" ry="9" stroke="#f5a623" stroke-width="1.1" opacity="0.6" transform="rotate(-60 32 32)"></ellipse>
+
+          <!-- Electron on orbit 1 — right side -->
+          <g>
+            <circle cx="58" cy="32" r="5" fill="#f5a623" opacity="0.25"></circle>
+            <circle cx="58" cy="32" r="3.5" fill="url(#logo-e-grad)" filter="url(#logo-e-glow)"></circle>
+          </g>
+
+          <!-- Electron on orbit 2 — upper-left -->
+          <g transform="rotate(240 32 32)">
+            <circle cx="58" cy="32" r="5" fill="#f5a623" opacity="0.25"></circle>
+            <circle cx="58" cy="32" r="3.5" fill="url(#logo-e-grad)" filter="url(#logo-e-glow)"></circle>
+          </g>
+
+          <!-- Electron on orbit 3 — lower-left -->
+          <g transform="rotate(-60 32 32)">
+            <circle cx="6" cy="32" r="5" fill="#f5a623" opacity="0.25"></circle>
+            <circle cx="6" cy="32" r="3.5" fill="url(#logo-e-grad)" filter="url(#logo-e-glow)"></circle>
+          </g>
+        </svg>
+      </div>
+      <span class="logo-name">Atom <span>Miners™</span></span>
+    </a>
+    <nav>
+      <a href="#products">Products</a>
+      <a href="#why">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="nav-cta">Get a Quote</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Infrastructure-Grade Hardware</span>
+      </div>
+      <h1>POWER.<br><em>COMPUTE.</em><br>SCALE.</h1>
+      <p class="hero-sub">
+        Atom Miners™ delivers enterprise ASIC miners, AI accelerators, 
+mining containers, and power infrastructure — built for the demands of 
+serious operations.
+      </p>
+      <div class="hero-actions">
+        <a href="#products" class="btn-primary">
+          Explore Products
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+        <a href="#contact" class="btn-ghost">Contact Sales</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-visual">
+        <svg width="100%" height="100%" viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+          <defs>
+            <radialGradient id="nucleus-grad" cx="40%" cy="40%">
+              <stop offset="0%" stop-color="#ffd97a"></stop>
+              <stop offset="100%" stop-color="#e08800"></stop>
+            </radialGradient>
+            <radialGradient id="btc-grad" cx="35%" cy="35%">
+              <stop offset="0%" stop-color="#ffcc70"></stop>
+              <stop offset="100%" stop-color="#f7931a"></stop>
+            </radialGradient>
+            <radialGradient id="eth-grad" cx="35%" cy="35%">
+              <stop offset="0%" stop-color="#b0c4ff"></stop>
+              <stop offset="100%" stop-color="#627eea"></stop>
+            </radialGradient>
+            <radialGradient id="ltc-grad" cx="35%" cy="35%">
+              <stop offset="0%" stop-color="#efefef"></stop>
+              <stop offset="100%" stop-color="#9b9b9b"></stop>
+            </radialGradient>
+            <filter id="soft-glow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="6" result="blur"></feGaussianBlur>
+              <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+            </filter>
+            <filter id="nucleus-glow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="10" result="blur"></feGaussianBlur>
+              <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+            </filter>
+          </defs>
+
+          <!-- ── NUCLEUS ── -->
+          <!-- outer ambient glow -->
+          <circle cx="230" cy="230" r="52" fill="#f5a623" opacity="0.05"></circle>
+          <circle cx="230" cy="230" r="36" fill="#f5a623" opacity="0.08"></circle>
+          <!-- pulsing halo -->
+          <circle cx="230" cy="230" r="28" fill="#f5a623" opacity="0.15">
+            <animate attributeName="r" values="28;36;28" dur="3s" repeatCount="indefinite"></animate>
+            <animate attributeName="opacity" values="0.15;0.04;0.15" dur="3s" repeatCount="indefinite"></animate>
+          </circle>
+          <!-- solid nucleus body -->
+          <circle cx="230" cy="230" r="28" fill="url(#nucleus-grad)" filter="url(#nucleus-glow)"></circle>
+          <!-- "AI" perfectly centered using dy offset -->
+          <text x="230" y="230" text-anchor="middle" font-size="17" font-weight="900" font-family="'Bebas Neue',Arial,sans-serif" fill="#080808" letter-spacing="3" opacity="0.92">
+            <tspan dy="6">AI</tspan>
+          </text>
+
+          <!-- ── ORBIT 1: BTC — largest circle ── -->
+          <circle cx="230" cy="230" r="168" stroke="#f5a623" stroke-width="1" stroke-dasharray="6 5" opacity="0.3"></circle>
+          <!-- BTC electron -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate" from="0 230 230" to="360 230 230" dur="7s" repeatCount="indefinite"></animateTransform>
+            <circle cx="398" cy="230" r="24" fill="url(#btc-grad)" filter="url(#soft-glow)"></circle>
+            <text x="398" y="238" text-anchor="middle" font-size="20" font-weight="900" font-family="Arial,sans-serif" fill="white">₿</text>
+          </g>
+
+          <!-- ── ORBIT 2: ETH — medium circle ── -->
+          <circle cx="230" cy="230" r="118" stroke="#f5a623" stroke-width="1" stroke-dasharray="6 5" opacity="0.3"></circle>
+          <!-- ETH electron -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate" from="120 230 230" to="-240 230 230" dur="10s" repeatCount="indefinite"></animateTransform>
+            <circle cx="348" cy="230" r="24" fill="url(#eth-grad)" filter="url(#soft-glow)"></circle>
+            <text x="348" y="239" text-anchor="middle" font-size="22" font-weight="900" font-family="Arial,sans-serif" fill="white">Ξ</text>
+          </g>
+
+          <!-- ── ORBIT 3: LTC — smallest circle ── -->
+          <circle cx="230" cy="230" r="70" stroke="#f5a623" stroke-width="1" stroke-dasharray="6 5" opacity="0.3"></circle>
+          <!-- LTC electron -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate" from="240 230 230" to="600 230 230" dur="5s" repeatCount="indefinite"></animateTransform>
+            <circle cx="300" cy="230" r="20" fill="url(#ltc-grad)" filter="url(#soft-glow)"></circle>
+            <text x="300" y="238" text-anchor="middle" font-size="17" font-weight="900" font-family="Arial,sans-serif" fill="white">Ł</text>
+          </g>
+
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-value">50<span>+</span></div>
+      <div class="stat-label">Products in Catalog</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">24<span>/7</span></div>
+      <div class="stat-label">Technical Support</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">45<span>+</span></div>
+      <div class="stat-label">Countries Served</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value"><span>#</span>1</div>
+      <div class="stat-label">Special Hardware's Distributor</div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="section-tag">Product Catalog</div>
+    <h2 class="section-title">HARDWARE FOR<br>EVERY SCALE</h2>
+    <p class="section-desc">From single-unit deployments to MW-scale data centers — browse our full line of compute and power equipment.</p>
+
+    <div class="products-grid">
+
+      <!-- ASIC Miners -->
+      <div class="product-card">
+        <div class="product-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="7" width="16" height="10" rx="1"></rect>
+            <path d="M8 7V5M12 7V5M16 7V5M8 17v2M12 17v2M16 17v2"></path>
+            <path d="M7 11h2M11 11h2M15 11h2"></path>
+          </svg>
+        </div>
+        <div class="product-name">ASIC Miners</div>
+        <div class="product-desc">
+          Top-tier SHA-256, Scrypt, and Ethash mining rigs from Bitmain,
+ MicroBT, Canaan, and more. Brand new units available with full warranty
+ options.
+        </div>
+        <div class="product-specs">
+          <span class="spec-tag">Antminer Series</span>
+          <span class="spec-tag">Whatsminer</span>
+          <span class="spec-tag">Avalon</span>
+          <span class="spec-tag">Multi-Algorithm</span>
+        </div>
+        <a target="_blank" rel="noopener" class="product-link" href="https://shop.atomminers.com/product-category/asic/">
+          View Miners
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1.5 6h9M7 2.5L10.5 6 7 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+      </div>
+
+      <!-- Power Equipment -->
+      <div class="product-card">
+        <div class="product-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+          </svg>
+        </div>
+        <div class="product-name">Power Equipment</div>
+        <div class="product-desc">
+          Industrial-grade PDUs, transformers, UPS systems, and 
+switchgear designed for continuous high-density compute workloads. 
+Scalable from rack to campus.
+        </div>
+        <div class="product-specs">
+          <span class="spec-tag">PDU</span>
+          <span class="spec-tag">Transformers</span>
+          <span class="spec-tag">UPS Systems</span>
+          <span class="spec-tag">Switchgear</span>
+        </div>
+        <a target="_blank" rel="noopener" class="product-link" href="https://shop.atomminers.com/product-category/power/">
+          View Power Equipment
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1.5 6h9M7 2.5L10.5 6 7 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+      </div>
+
+      <!-- Mining Containers -->
+      <div class="product-card">
+        <div class="product-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="7" width="20" height="13" rx="1"></rect>
+            <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"></path>
+            <path d="M12 12v3M10 13.5h4"></path>
+          </svg>
+        </div>
+        <div class="product-name">Mining Containers</div>
+        <div class="product-desc">
+          Deployable, pre-fitted mining containers with integrated 
+cooling, electrical panels, and rack infrastructure. Ready-to-operate in
+ days, not months.
+        </div>
+        <div class="product-specs">
+          <span class="spec-tag">Air-Cooled</span>
+          <span class="spec-tag">Immersion</span>
+          <span class="spec-tag">Hydro-Cooling</span>
+          <span class="spec-tag">Custom Builds</span>
+        </div>
+        <a target="_blank" rel="noopener" class="product-link" href="https://shop.atomminers.com/product-category/containers/">
+          View Containers
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1.5 6h9M7 2.5L10.5 6 7 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+      </div>
+
+      <!-- AI Accelerators -->
+      <div class="product-card">
+        <div class="product-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+            <path d="M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"></path>
+          </svg>
+        </div>
+        <div class="product-name">AI Accelerators</div>
+        <div class="product-desc">
+          High-performance GPU clusters and purpose-built AI inference 
+and training hardware. Nvidia, AMD, Intel, Huawei and more next-gen 
+accelerators for LLM and HPC workloads.
+        </div>
+        <div class="product-specs">
+          <span class="spec-tag">Nvidia</span>
+          <span class="spec-tag">AMD</span>
+          <span class="spec-tag">Intel</span>
+          <span class="spec-tag">HPC Clusters</span>
+        </div>
+        <a target="_blank" rel="noopener" class="product-link" href="https://shop.atomminers.com/product-category/ai/">
+          View AI Hardware
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1.5 6h9M7 2.5L10.5 6 7 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHY Atom Miners™ -->
+  <section id="why">
+    <div>
+      <div class="section-tag">Why Atom Miners™</div>
+      <h2 class="section-title">BUILT FOR<br>OPERATORS</h2>
+      <p class="section-desc">We don't just sell hardware. We partner with mining operations, data centers, and AI labs at every stage of their build.</p>
+
+      <div class="why-features">
+        <div class="why-feature">
+          <div class="why-num">01</div>
+          <div class="why-content">
+            <h3>Direct Manufacturer Relationships</h3>
+            <p>Authorized distributor for Bitmain, MicroBT, Canaan, 
+NVIDIA, AMD, Intel, Huawei — ensuring genuine hardware, full warranty, 
+and priority allocation.</p>
+          </div>
+        </div>
+        <div class="why-feature">
+          <div class="why-num">02</div>
+          <div class="why-content">
+            <h3>End-to-End Infrastructure</h3>
+            <p>From a single miner to a multi-megawatt container farm — we supply, configure, and support the complete stack.</p>
+          </div>
+        </div>
+        <div class="why-feature">
+          <div class="why-num">03</div>
+          <div class="why-content">
+            <h3>Flexible Procurement</h3>
+            <p>Spot inventory, bulk pre-orders, leasing options, and hardware buyback programs tailored to your operational model.</p>
+          </div>
+        </div>
+        <div class="why-feature">
+          <div class="why-num">04</div>
+          <div class="why-content">
+            <h3>Global Logistics</h3>
+            <p>Bonded warehousing, customs clearance, and white-glove delivery to over 45+ countries. Fast turnaround, tracked shipments.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-visual">
+      <div class="why-visual-inner" id="gridViz">
+        <!-- cells injected by JS -->
+      <div class="why-visual-cell bright"></div><div class="why-visual-cell bright"></div><div class="why-visual-cell bright"></div><div class="why-visual-cell lit"></div><div class="why-visual-cell lit"></div><div class="why-visual-cell lit"></div><div class="why-visual-cell lit"></div><div class="why-visual-cell lit"></div><div class="why-visual-cell lit"></div><div class="why-visual-cell lit"></div><div class="why-visual-cell lit"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell"></div><div class="why-visual-cell lit"></div><div class="why-visual-cell bright"></div><div class="why-visual-cell bright"></div><div class="why-visual-cell lit"></div></div>
+      <div class="why-visual-label">Atom Miners™</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-tag">Get in Touch</div>
+    <h2 class="section-title">READY TO<br>SCALE UP?</h2>
+    <p class="section-desc">Our team is available 24/7 for quotes, bulk orders, technical consultation, and logistics.</p>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-label">Email</div>
+        <a class="contact-value" href="mailto:orders@atomminers.com">orders@atomminers.com</a>
+        <p class="contact-note">For quotes, product inquiries, and bulk pricing. Replies within 2-3 business hours.</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Official website</div>
+        <a target="_blank" rel="noopener" class="contact-value" href="https://atomminers.com/">atomminers.com</a>
+        <p class="contact-note">Fastest response channel for urgent orders, live inventory checks, and pricing.</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Phone</div>
+        <a class="contact-value" href="tel:+8675583890798">+86 755-838-90-798</a>
+        <p class="contact-note">Available Mon–Fri, 09:00–18:00 GMT+8. English and Chinese speaking.</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Headquarters</div>
+        <span class="contact-value" style="cursor:default">Shenzhen, Guangdong Province,
+
+China</span>
+        <p class="contact-note">Operations and logistics hubs in Europe, North America and Southeast Asia.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Atom <span>Miners™</span></div>
+    <div class="footer-copy">Copyright © 2026 Atom Miners™. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="#products">Products</a>
+      <a href="#why">About</a>
+      <a href="#contact">Contact</a>
+      <a href="https://atomr.io/" target="_blank" rel="noopener">Website ↗</a>
+    </div>
+  </footer>
+
+  <script>
+    // Animate grid viz
+    const grid = document.getElementById('gridViz');
+    if (grid) {
+      const cells = Array.from({length: 36}, (_, i) => {
+        const el = document.createElement('div');
+        el.className = 'why-visual-cell';
+        grid.appendChild(el);
+        return el;
+      });
+
+      function randomizeCells() {
+        cells.forEach(c => c.className = 'why-visual-cell');
+        const litCount = Math.floor(Math.random() * 10) + 6;
+        const brightCount = Math.floor(Math.random() * 4) + 2;
+        const shuffled = [...cells].sort(() => Math.random() - 0.5);
+        shuffled.slice(0, litCount).forEach(c => c.className = 'why-visual-cell lit');
+        shuffled.slice(0, brightCount).forEach(c => c.className = 'why-visual-cell bright');
+      }
+
+      randomizeCells();
+      setInterval(randomizeCells, 1800);
+    }
+
+    // Smooth scroll for anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+
+</body></html>
